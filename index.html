@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاضری لیلیه معرفت</title>
+  <style>
+    :root {
+      --bg1: #020617;
+      --bg2: #0f172a;
+      --green: #22c55e;
+      --teal: #14b8a6;
+      --blue: #38bdf8;
+      --red: #ef4444;
+      --glass: rgba(255,255,255,0.14);
+      --border: rgba(255,255,255,0.22);
+      --text-soft: rgba(255,255,255,0.75);
+    }
+
+    * { box-sizing: border-box; font-family: Tahoma, Arial, sans-serif; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(20,184,166,0.85) 0, transparent 30%),
+        radial-gradient(circle at bottom left, rgba(56,189,248,0.28) 0, transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 45%, #064e3b);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1080px;
+      min-height: 820px;
+      background: rgba(15, 23, 42, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 30px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 30px 20px 18px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .icon {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 13px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      display: grid;
+      place-items: center;
+      font-size: 40px;
+      box-shadow: 0 16px 32px rgba(0,0,0,0.24);
+    }
+
+    h1 { margin: 0 0 8px; font-size: 31px; font-weight: 900; }
+    .subtitle { margin: 0; color: var(--text-soft); line-height: 1.8; font-size: 14px; }
+    .content { padding: 18px; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 13px 8px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .tab.active { background: linear-gradient(135deg, var(--green), var(--teal)); color: #052e16; }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    label { display: block; margin-bottom: 9px; font-weight: 800; font-size: 14px; }
+
+    input, textarea, select {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 15px;
+      color: #0f172a;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+      margin-bottom: 12px;
+      direction: rtl;
+    }
+
+    textarea { min-height: 190px; resize: vertical; line-height: 1.9; }
+
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 13px 10px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    button:hover { filter: brightness(1.06); }
+    button:active { transform: scale(0.97); }
+
+    .primary { width: 100%; background: linear-gradient(135deg, var(--green), var(--teal)); color: #052e16; box-shadow: 0 12px 25px rgba(20,184,166,0.22); }
+    .secondary { width: 100%; margin-top: 10px; background: rgba(255,255,255,0.18); color: white; border: 1px solid rgba(255,255,255,0.24); }
+    .danger { background: rgba(239,68,68,0.32); color: white; }
+    .present { background: linear-gradient(135deg, var(--green), #86efac); color: #052e16; }
+    .absent { background: linear-gradient(135deg, var(--red), #fca5a5); color: #450a0a; }
+    .leave { background: linear-gradient(135deg, var(--blue), #bae6fd); color: #082f49; }
+    .unset { background: rgba(255,255,255,0.18); color: white; border: 1px solid rgba(255,255,255,0.2); }
+
+    .message {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.7;
+      background: rgba(0,0,0,0.24);
+    }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-bottom: 14px; }
+    .stat { border-radius: 17px; padding: 12px 7px; text-align: center; background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.12); }
+    .stat strong { display: block; font-size: 23px; margin-bottom: 4px; }
+    .stat span { font-size: 12px; color: var(--text-soft); }
+
+    .student-row, .report-row {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 12px;
+      border-radius: 18px;
+      margin-bottom: 10px;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .student-top, .report-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .student-top { margin-bottom: 10px; }
+    .student-name { font-weight: 900; line-height: 1.7; }
+    .student-number { color: rgba(255,255,255,0.62); font-size: 12px; margin-left: 6px; }
+
+    .status-badge { padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 900; white-space: nowrap; }
+    .badge-present { background: rgba(34,197,94,0.24); color: #bbf7d0; }
+    .badge-absent { background: rgba(239,68,68,0.24); color: #fecaca; }
+    .badge-leave { background: rgba(56,189,248,0.24); color: #bae6fd; }
+    .badge-unset { background: rgba(255,255,255,0.16); color: rgba(255,255,255,0.78); }
+
+    .row-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .list-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
+    .list-title h2 { margin: 0; font-size: 18px; }
+    .date { font-size: 12px; color: var(--text-soft); white-space: nowrap; }
+    .empty { text-align: center; color: rgba(255,255,255,0.68); padding: 22px 8px; line-height: 1.8; }
+    .note { font-size: 12px; color: var(--text-soft); line-height: 1.9; margin: 8px 0 0; }
+    .report-detail { font-size: 12px; color: rgba(255,255,255,0.72); display: block; margin-top: 5px; line-height: 1.7; }
+    .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .two-controls { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media print {
+      body { background: white; color: black; display: block; }
+      .app { box-shadow: none; border: none; background: white; color: black; }
+      .tabs, button, .card:first-child { display: none !important; }
+    }
+
+    .auth-bar { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .auth-status { text-align:center; font-size:13px; margin-top:10px; opacity:.92; }
+    .auth-card { margin-bottom:16px; }
+    .auth-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .auth-grid input { width:100%; box-sizing:border-box; padding:12px; border:1px solid #d6d6d6; border-radius:10px; font-family:inherit; }
+    .hidden { display:none !important; }
+    .manager-lock { font-size:13px; margin:8px 0 0; color:#8a4b00; }
+    @media (max-width: 760px) {
+      body { padding: 0; }
+      .app { min-height: 100vh; border-radius: 0; }
+      .content { padding: 14px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .row-buttons, .controls, .two-controls { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 24px; }
+      .student-top, .report-row { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="header">
+      <div class="icon">📋</div>
+      <h1>حاضری لیلیه معرفت</h1>
+      <p class="subtitle">سیستم آنلاین ثبت حاضری شاگردان لیلیه؛ اطلاعات در Supabase ذخیره و از هر دستگاه قابل مشاهده است.</p>
+      <div class="auth-bar">
+        <button id="loginButton" class="secondary" onclick="toggleLoginPanel()">ورود مدیر</button>
+        <button id="changePasswordButton" class="secondary hidden" onclick="togglePasswordPanel()">تغییر رمز</button>
+        <button id="logoutButton" class="secondary hidden" onclick="logoutManager()">خروج مدیر</button>
+      </div>
+      <div id="authStatus" class="auth-status">حالت بازدید: فقط مشاهده</div>
+    </section>
+
+    <section class="content">
+      <section id="loginPanel" class="card auth-card hidden">
+        <h2>ورود مدیر</h2>
+        <div class="auth-grid">
+          <input id="adminEmail" type="email" placeholder="ایمیل مدیر" autocomplete="email" />
+          <input id="adminPassword" type="password" placeholder="رمز عبور" autocomplete="current-password" />
+        </div>
+        <button class="primary" style="margin-top:12px;" onclick="loginManager()">ورود</button>
+        <p class="note">فقط مدیرِ ثبت‌شده می‌تواند لیست شاگردان و حاضری را تغییر دهد.</p>
+      </section>
+      <section id="passwordPanel" class="card auth-card hidden">
+        <h2>تغییر رمز مدیر</h2>
+        <div class="auth-grid">
+          <input id="newPassword" type="password" placeholder="رمز جدید (حداقل ۶ حرف)" autocomplete="new-password" />
+          <input id="confirmPassword" type="password" placeholder="تکرار رمز جدید" autocomplete="new-password" />
+        </div>
+        <button class="primary" style="margin-top:12px;" onclick="changeManagerPassword()">ذخیره رمز جدید</button>
+      </section>
+
+      <div class="tabs">
+        <button id="attendanceTab" class="tab active" onclick="showSection('attendance')">حاضری</button>
+        <button id="studentsTab" class="tab" onclick="showSection('students')">شاگردان</button>
+        <button id="reportTab" class="tab" onclick="showSection('report')">گزارش</button>
+      </div>
+
+      <section id="attendanceSection" class="section active">
+        <div class="stats">
+          <div class="stat"><strong id="totalStudents">۰</strong><span>شاگردان</span></div>
+          <div class="stat"><strong id="todayPresent">۰</strong><span>حاضر</span></div>
+          <div class="stat"><strong id="todayAbsent">۰</strong><span>غیرحاضر</span></div>
+          <div class="stat"><strong id="todayLeave">۰</strong><span>رخصت</span></div>
+        </div>
+
+        <div class="card">
+          <div class="list-title">
+            <h2>حاضری امروز</h2>
+            <span id="todayDate" class="date"></span>
+          </div>
+          <div class="controls">
+            <button class="present" onclick="markAll('present')">همه حاضر</button>
+            <button class="absent" onclick="markAll('absent')">همه غیرحاضر</button>
+            <button class="leave" onclick="markAll('leave')">همه رخصت</button>
+          </div>
+          <p class="note">🔒 ثبت‌های حاضری حذف نمی‌شوند. برای اصلاح، حالت هر شاگرد را تغییر بده؛ نسخه قبلی نیز در بکاپ‌ها باقی می‌ماند.</p>
+          <div id="attendanceList"></div>
+        </div>
+      </section>
+
+      <section id="studentsSection" class="section">
+        <div class="card">
+          <label for="studentNames">نام شاگردان؛ هر نام در یک خط</label>
+          <textarea id="studentNames" placeholder="مثلاً:\nاحمد فهیم\nمحمد حامد\nعبدالله صمیم\nذبیح‌الله نوری"></textarea>
+          <button class="primary" onclick="saveStudents()">ذخیره لیست شاگردان</button>
+          <button class="secondary" onclick="loadSample100()">ساخت ۱۰۰ نام نمونه مردانه</button>
+          <p class="note">🔒 با ذخیره لیست جدید، رکوردهای قبلی پاک نمی‌شوند؛ شاگردان حذف‌شده فقط آرشیف می‌گردند.</p>
+          <button class="secondary" onclick="downloadFullBackup()">دانلود بکاپ کامل اطلاعات</button>
+          <label for="backupFile" style="margin-top:14px;">بازگردانی بکاپ قبلی (فایل JSON)</label>
+          <input id="backupFile" type="file" accept=".json,application/json" onchange="restoreFullBackup(event)" />
+          <p class="note">هر بار که اطلاعات تغییر کند، یک نسخهٔ محافظتی داخل مرورگر ساخته می‌شود. بکاپ کامل را نیز مرتب در موبایل یا Google Drive نگهدار.</p>
+          <div id="message" class="message"></div>
+        </div>
+
+        <div class="card">
+          <div class="list-title">
+            <h2>لیست ذخیره‌شده</h2>
+            <span id="studentsCount" class="date">۰ شاگرد</span>
+          </div>
+          <div id="savedStudentsList"></div>
+        </div>
+      </section>
+
+      <section id="reportSection" class="section">
+        <div class="card">
+          <label for="weekDate">انتخاب تاریخ داخل هفته</label>
+          <input id="weekDate" type="date" />
+          <div class="two-controls">
+            <button class="primary" onclick="generateWeeklyReport()">ساخت گزارش هفته‌وار</button>
+            <button class="secondary" onclick="exportWeeklyExcel()">دانلود گزارش Excel فارسی</button>
+          </div>
+          <button class="secondary" onclick="printWeeklyReport()">چاپ گزارش</button>
+          <p class="note">گزارش هفته‌وار از دوشنبه تا یکشنبه محاسبه می‌شود. فایل Excel با جهت راست‌به‌چپ و سرستون‌های فارسی ساخته می‌شود.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong id="weekTotal">۰</strong><span>ثبت‌ها</span></div>
+          <div class="stat"><strong id="weekPresent">۰</strong><span>حاضر</span></div>
+          <div class="stat"><strong id="weekAbsent">۰</strong><span>غیرحاضر</span></div>
+          <div class="stat"><strong id="weekLeave">۰</strong><span>رخصت</span></div>
+        </div>
+
+        <div class="card">
+          <div class="list-title">
+            <h2>گزارش هفته</h2>
+            <span id="weekRange" class="date"></span>
+          </div>
+          <div id="weeklyReportList"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script>
+    const STORAGE_STUDENTS = 'liliya_maarefat_students_v2';
+    const STORAGE_RECORDS = 'liliya_maarefat_records_v3';
+    const STORAGE_STUDENTS_OLD = 'liliya_maarefat_students_v2';
+    const STORAGE_RECORDS_OLD = 'liliya_maarefat_records_v2';
+    const STORAGE_BACKUPS = 'liliya_maarefat_protected_backups_v1';
+
+    let students = [];
+    let records = [];
+    let currentWeeklySummary = [];
+    let currentWeeklyRaw = [];
+
+    const todayISO = getISODate(new Date());
+    const todayDate = document.getElementById('todayDate');
+    const weekDate = document.getElementById('weekDate');
+    const message = document.getElementById('message');
+    const studentNames = document.getElementById('studentNames');
+    const attendanceList = document.getElementById('attendanceList');
+    const savedStudentsList = document.getElementById('savedStudentsList');
+
+    document.addEventListener('DOMContentLoaded', function() {
+      todayDate.textContent = formatDateFA(new Date());
+      weekDate.value = todayISO;
+      loadData();
+      refreshAll();
+    });
+
+    function loadData() {
+      try {
+        // انتقال امن داده‌های نسخه قدیمی به نسخه محافظت‌شده
+        students = JSON.parse(localStorage.getItem(STORAGE_STUDENTS) || localStorage.getItem(STORAGE_STUDENTS_OLD) || '[]');
+        records = JSON.parse(localStorage.getItem(STORAGE_RECORDS) || localStorage.getItem(STORAGE_RECORDS_OLD) || '[]');
+        students = students.map(s => ({ ...s, active: s.active !== false }));
+      } catch (e) {
+        students = [];
+        records = [];
+        showMessage('ذخیره‌گاه مرورگر مشکل داشت. لطفاً از بکاپ استفاده کن.');
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_STUDENTS, JSON.stringify(students));
+      localStorage.setItem(STORAGE_RECORDS, JSON.stringify(records));
+      createProtectedSnapshot();
+      queueCloudSync();
+    }
+
+    function createProtectedSnapshot() {
+      try {
+        const backup = {
+          version: 3,
+          createdAt: new Date().toISOString(),
+          students: students,
+          records: records
+        };
+        const snapshots = JSON.parse(localStorage.getItem(STORAGE_BACKUPS) || '[]');
+        const serialized = JSON.stringify(backup);
+        // فقط در صورت تغییر واقعی، یک نسخه تازه نگهداری می‌شود
+        if (!snapshots.length || JSON.stringify(snapshots[snapshots.length - 1].data) !== serialized) {
+          snapshots.push({ createdAt: backup.createdAt, data: serialized });
+          // آخرین 30 نسخه محافظتی در مرورگر باقی می‌ماند
+          localStorage.setItem(STORAGE_BACKUPS, JSON.stringify(snapshots.slice(-30)));
+        }
+      } catch (e) {
+        console.warn('Automatic backup failed', e);
+      }
+    }
+
+    function downloadFullBackup() {
+      const backup = {
+        app: 'حاضری لیلیه معرفت',
+        version: 3,
+        exportedAt: new Date().toISOString(),
+        students: students,
+        records: records
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'بکاپ-کامل-حاضری-لیلیه-معرفت-' + getISODate(new Date()) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showMessage('✅ بکاپ کامل دانلود شد. آن را در Google Drive یا فلش نگهدار.');
+    }
+
+    function restoreFullBackup(event) {
+      if (!requireManager()) return;
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function() {
+        try {
+          const backup = JSON.parse(reader.result);
+          if (!Array.isArray(backup.students) || !Array.isArray(backup.records)) throw new Error('invalid');
+          if (!confirm('اطلاعات بکاپ با اطلاعات فعلی یک‌جا می‌شود؛ هیچ رکورد فعلی پاک نخواهد شد. ادامه می‌دهی؟')) return;
+          const ids = new Set(students.map(s => s.id));
+          backup.students.forEach(s => {
+            if (!ids.has(s.id)) students.push({ ...s, active: s.active !== false });
+          });
+          const recordIds = new Set(records.map(r => r.id));
+          backup.records.forEach(r => {
+            if (!recordIds.has(r.id)) records.push(r);
+          });
+          saveData();
+          refreshAll();
+          showMessage('✅ بکاپ با موفقیت یک‌جا شد؛ اطلاعات قبلی نیز نگه‌داشته شد.');
+        } catch (e) {
+          showMessage('فایل بکاپ درست نیست یا خراب شده است.');
+        }
+      };
+      reader.readAsText(file, 'UTF-8');
+      event.target.value = '';
+    }
+
+    function refreshAll() {
+      renderSavedStudents();
+      renderAttendance();
+      generateWeeklyReport();
+    }
+
+    function saveStudents() {
+      if (!requireManager()) return;
+      const names = studentNames.value
+        .split('\n')
+        .map(n => n.trim())
+        .filter(n => n.length > 0)
+        .slice(0, 100);
+
+      if (names.length === 0) {
+        showMessage('لطفاً حداقل یک نام وارد کنید.');
+        return;
+      }
+
+      // هیچ شاگرد یا سابقه حذف نمی‌شود: نام‌های قبلی که در فهرست جدید نیستند آرشیف می‌شوند.
+      const activeOld = students.filter(s => s.active !== false);
+      const updated = [];
+      names.forEach((name, index) => {
+        const old = activeOld.find(s => s.name === name && !updated.some(u => u.id === s.id));
+        updated.push(old ? { ...old, number: index + 1, name, active: true } : {
+          id: Date.now() + index,
+          number: index + 1,
+          name,
+          active: true,
+          createdAt: new Date().toISOString()
+        });
+      });
+      const newIds = new Set(updated.map(s => s.id));
+      const archived = students
+        .filter(s => !newIds.has(s.id))
+        .map(s => ({ ...s, active: false, archivedAt: s.archivedAt || new Date().toISOString() }));
+      students = [...updated, ...archived];
+      saveData();
+      showMessage('✅ لیست تازه ذخیره شد؛ تمام حاضری‌ها و شاگردان قبلی محفوظ و آرشیف شدند.');
+      refreshAll();
+    }
+
+    function renderSavedStudents() {
+      document.getElementById('studentsCount').textContent = toPersianDigits(students.filter(s => s.active !== false).length) + ' شاگرد';
+      document.getElementById('totalStudents').textContent = toPersianDigits(students.filter(s => s.active !== false).length);
+      studentNames.value = students.map(s => s.name).join('\n');
+      savedStudentsList.innerHTML = '';
+
+      if (students.filter(s => s.active !== false).length === 0) {
+        savedStudentsList.innerHTML = '<div class="empty">هنوز لیست شاگردان ذخیره نشده است.</div>';
+        return;
+      }
+
+      students.filter(s => s.active !== false).forEach(student => {
+        const row = document.createElement('div');
+        row.className = 'student-row';
+        row.innerHTML = `
+          <div class="student-top" style="margin-bottom:0;">
+            <div class="student-name"><span class="student-number">${toPersianDigits(student.number)}.</span>${escapeHTML(student.name)}</div>
+          </div>`;
+        savedStudentsList.appendChild(row);
+      });
+    }
+
+    function renderAttendance() {
+      attendanceList.innerHTML = '';
+      const todayRecords = records.filter(r => r.date === todayISO);
+      const present = todayRecords.filter(r => r.status === 'present').length;
+      const absent = todayRecords.filter(r => r.status === 'absent').length;
+      const leave = todayRecords.filter(r => r.status === 'leave').length;
+
+      document.getElementById('todayPresent').textContent = toPersianDigits(present);
+      document.getElementById('todayAbsent').textContent = toPersianDigits(absent);
+      document.getElementById('todayLeave').textContent = toPersianDigits(leave);
+
+      if (students.filter(s => s.active !== false).length === 0) {
+        attendanceList.innerHTML = '<div class="empty">اول از بخش «شاگردان» لیست شاگردان را ذخیره کن.</div>';
+        return;
+      }
+
+      students.filter(s => s.active !== false).forEach(student => {
+        const record = todayRecords.find(r => r.studentId === student.id);
+        const status = record ? record.status : 'unset';
+        const badgeText = getStatusFA(status);
+        const badgeClass = status === 'present' ? 'badge-present' : status === 'absent' ? 'badge-absent' : status === 'leave' ? 'badge-leave' : 'badge-unset';
+
+        const row = document.createElement('div');
+        row.className = 'student-row';
+        row.innerHTML = `
+          <div class="student-top">
+            <div class="student-name"><span class="student-number">${toPersianDigits(student.number)}.</span>${escapeHTML(student.name)}</div>
+            <span class="status-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="row-buttons">
+            <button class="present" onclick="saveAttendance(${student.id}, 'present')">حاضر</button>
+            <button class="absent" onclick="saveAttendance(${student.id}, 'absent')">غیرحاضر</button>
+            <button class="leave" onclick="saveAttendance(${student.id}, 'leave')">رخصت</button>
+            <button class="unset" onclick="deleteAttendance(${student.id})">پاک</button>
+          </div>`;
+        attendanceList.appendChild(row);
+      });
+    }
+
+    function saveAttendance(studentId, status) {
+      if (!requireManager()) return;
+      const student = students.find(s => s.id === studentId);
+      if (!student) return;
+
+      const existingIndex = records.findIndex(r => r.date === todayISO && r.studentId === studentId);
+      const record = {
+        id: todayISO + '-' + studentId,
+        studentId: student.id,
+        studentNumber: student.number,
+        studentName: student.name,
+        status: status,
+        date: todayISO,
+        time: formatTimeFA(new Date()),
+        timestamp: new Date().toISOString()
+      };
+
+      if (existingIndex >= 0) records[existingIndex] = record;
+      else records.push(record);
+
+      saveData();
+      renderAttendance();
+      generateWeeklyReport();
+    }
+
+    function deleteAttendance(studentId) {
+      showMessage('🔒 حذف ثبت غیرفعال است تا هیچ داده‌ای ضایع نشود. برای اصلاح، یکی از حالت‌های حاضر، غیرحاضر یا رخصت را انتخاب کن.');
+    }
+
+    function markAll(status) {
+      if (!requireManager()) return;
+      if (students.filter(s => s.active !== false).length === 0) {
+        alert('اول لیست شاگردان را ذخیره کن.');
+        return;
+      }
+      students.forEach(student => saveAttendanceSilent(student.id, status));
+      saveData();
+      renderAttendance();
+      generateWeeklyReport();
+    }
+
+    function saveAttendanceSilent(studentId, status) {
+      const student = students.find(s => s.id === studentId);
+      if (!student) return;
+      const existingIndex = records.findIndex(r => r.date === todayISO && r.studentId === studentId);
+      const record = {
+        id: todayISO + '-' + studentId,
+        studentId: student.id,
+        studentNumber: student.number,
+        studentName: student.name,
+        status: status,
+        date: todayISO,
+        time: formatTimeFA(new Date()),
+        timestamp: new Date().toISOString()
+      };
+      if (existingIndex >= 0) records[existingIndex] = record;
+      else records.push(record);
+    }
+
+    function clearTodayAttendance() {
+      showMessage('🔒 پاک‌کردن حاضری غیرفعال است تا داده‌ها حذف نشوند.');
+    }
+
+    function clearStudents() {
+      showMessage('🔒 پاک‌کردن لیست غیرفعال است تا داده‌ها حذف نشوند.');
+    }
+
+    function loadSample100() {
+      if (!requireManager()) return;
+      const maleNames = [
+        'احمد فهیم', 'محمد حامد', 'عبدالله صمیم', 'عبدالرحمن نوری', 'حبیب‌الله اکبری',
+        'ذبیح‌الله حیدری', 'نعمت‌الله رحمانی', 'جاوید احمدی', 'فرید ناصری', 'سید مصطفی حسینی',
+        'حمیدالله وردک', 'وحیدالله صافی', 'شریف‌الله کریمی', 'نعمان شریفی', 'یاسر محمودی',
+        'زبیر امینی', 'بلال نظری', 'قاری محمد ادریس', 'احسان‌الله رفیعی', 'محب‌الله کاکر',
+        'نصیر احمد', 'شفیق‌الله توخی', 'لطیف‌الله غفوری', 'روح‌الله بابر', 'سراج‌الدین میرزایی',
+        'عبدالواسع فراهی', 'تمیم انصاری', 'قدرت‌الله قیومی', 'نقیب‌الله هاشمی', 'سمیع‌الله عثمانی',
+        'فیصل حبیبی', 'خان‌محمد رضایی', 'عصمت‌الله بارکزی', 'صدیق‌الله پوپل', 'محمود امیری',
+        'نوراحمد سروری', 'میرویس خالقی', 'فرهاد سلیمانی', 'شهاب‌الدین غزنوی', 'عمران حقانی',
+        'عبدالبصیر مومند', 'حکمت‌الله صدیقی', 'عزیزالله ناصری', 'امیدالله رحیمی', 'حسیب‌الله قادری',
+        'محمد طارق', 'بشیر احمد', 'سعیدالله جمالی', 'رحمت‌الله فضلی', 'ضیاالحق عادل',
+        'عبدالکریم نظری', 'اسدالله فیاض', 'سید حامد موسوی', 'جمال‌الدین سادات', 'معراج‌الدین یوسفی',
+        'خلیل‌الله شینواری', 'مطیع‌الله محسنی', 'هدایت‌الله رستمی', 'عابدالله سلطانی', 'عبدالقدیر جلالی',
+        'انیس‌الله حمیدی', 'صابر احمد', 'قاسم‌علی محمدی', 'ناصرالله شریفی', 'وحید احمد',
+        'رحیم‌الله عارفی', 'نعیم‌الله قریشی', 'محمد الیاس', 'عطاءالله فروتن', 'عبدالمتین عزیزی',
+        'محمد اکرم', 'سید وحیدالله', 'عبداللطیف هروی', 'اسماعیل خان', 'مجیب‌الله نیکزاد',
+        'عرفان‌الله صفری', 'معین‌الدین رحیمی', 'فواد احمد', 'سلمان‌الله امین', 'شمس‌الحق نوری',
+        'محمد بلال', 'سید عنایت‌الله', 'عبدالحمید مجددی', 'ولی‌محمد قاسمی', 'نبی‌الله دوست',
+        'عبدالصبور فیضی', 'خیرالله نجیمی', 'سید طاهر', 'محمد زبیر', 'ادریس احمدی',
+        'عبدالهادی مرادی', 'عبدالجبار کریمی', 'مصطفی جان', 'اجمل احمد', 'فوادالله ملکی',
+        'عبدالسلام رفیقی', 'محمد اسحاق', 'صدام حسین', 'سید فرید', 'عبدالقیوم صافی'
+      ];
+      studentNames.value = maleNames.join('\n');
+      showMessage('✅ ۱۰۰ نام نمونه مردانه ساخته شد؛ بعد از بررسی روی «ذخیره لیست شاگردان» کلیک کن.');
+    }
+
+    function generateWeeklyReport() {
+      const selected = weekDate.value || todayISO;
+      const range = getWeekRange(selected);
+      document.getElementById('weekRange').textContent = formatISODateFA(range.start) + ' تا ' + formatISODateFA(range.end);
+
+      const weeklyRecords = records.filter(r => r.date >= range.start && r.date <= range.end);
+      currentWeeklyRaw = weeklyRecords.slice().sort((a, b) => (a.date + a.studentNumber).localeCompare(b.date + b.studentNumber));
+
+      const present = weeklyRecords.filter(r => r.status === 'present').length;
+      const absent = weeklyRecords.filter(r => r.status === 'absent').length;
+      const leave = weeklyRecords.filter(r => r.status === 'leave').length;
+      document.getElementById('weekTotal').textContent = toPersianDigits(weeklyRecords.length);
+      document.getElementById('weekPresent').textContent = toPersianDigits(present);
+      document.getElementById('weekAbsent').textContent = toPersianDigits(absent);
+      document.getElementById('weekLeave').textContent = toPersianDigits(leave);
+
+      const weeklyReportList = document.getElementById('weeklyReportList');
+      weeklyReportList.innerHTML = '';
+      currentWeeklySummary = [];
+
+      if (students.filter(s => s.active !== false).length === 0) {
+        weeklyReportList.innerHTML = '<div class="empty">اول لیست شاگردان را ذخیره کن.</div>';
+        return;
+      }
+
+      students.filter(s => s.active !== false).forEach(student => {
+        const studentRecords = weeklyRecords.filter(r => r.studentId === student.id);
+        const p = studentRecords.filter(r => r.status === 'present').length;
+        const a = studentRecords.filter(r => r.status === 'absent').length;
+        const l = studentRecords.filter(r => r.status === 'leave').length;
+        const total = p + a + l;
+        currentWeeklySummary.push({ number: student.number, name: student.name, present: p, absent: a, leave: l, total });
+
+        const row = document.createElement('div');
+        row.className = 'report-row';
+        row.innerHTML = `
+          <div class="student-name">
+            <span class="student-number">${toPersianDigits(student.number)}.</span>${escapeHTML(student.name)}
+            <span class="report-detail">حاضر: ${toPersianDigits(p)} | غیرحاضر: ${toPersianDigits(a)} | رخصت: ${toPersianDigits(l)}</span>
+          </div>
+          <span class="status-badge badge-unset">مجموع: ${toPersianDigits(total)}</span>`;
+        weeklyReportList.appendChild(row);
+      });
+    }
+
+    function exportWeeklyExcel() {
+      generateWeeklyReport();
+      if (students.filter(s => s.active !== false).length === 0) {
+        alert('اول لیست شاگردان را ذخیره کن.');
+        return;
+      }
+
+      const selected = weekDate.value || todayISO;
+      const range = getWeekRange(selected);
+      const title = 'گزارش هفته‌وار حاضری لیلیه معرفت';
+      const fileName = 'گزارش-حاضری-لیلیه-معرفت-' + range.start + '.xls';
+
+      // روش SpreadsheetML برای اینکه متن فارسی در Excel درست، راست‌به‌چپ و بدون خراب‌شدن حروف باز شود.
+      function cell(value, styleId) {
+        return '<Cell' + (styleId ? ' ss:StyleID="' + styleId + '"' : '') + '><Data ss:Type="String">' + escapeXML(value) + '</Data></Cell>';
+      }
+
+      function row(cells) {
+        return '<Row>' + cells.join('') + '</Row>';
+      }
+
+      const rows = [];
+      rows.push(row([cell(title, 'title'), cell('', 'title'), cell('', 'title'), cell('', 'title'), cell('', 'title'), cell('', 'title')]));
+      rows.push(row([cell('از تاریخ ' + formatISODateFA(range.start) + ' تا ' + formatISODateFA(range.end), 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub')]));
+      rows.push(row([cell('تاریخ گرفتن گزارش: ' + formatDateFA(new Date()), 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub'), cell('', 'sub')]));
+      rows.push(row([cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal')]));
+      rows.push(row([cell('خلاصه هفته‌وار به اساس شاگرد', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section')]));
+      rows.push(row([
+        cell('شماره', 'header'),
+        cell('نام شاگرد', 'header'),
+        cell('حاضر', 'header'),
+        cell('غیرحاضر', 'header'),
+        cell('رخصت', 'header'),
+        cell('مجموع ثبت', 'header')
+      ]));
+
+      currentWeeklySummary.forEach(r => {
+        rows.push(row([
+          cell(toPersianDigits(r.number), 'normal'),
+          cell(r.name, 'normal'),
+          cell(toPersianDigits(r.present), 'normal'),
+          cell(toPersianDigits(r.absent), 'normal'),
+          cell(toPersianDigits(r.leave), 'normal'),
+          cell(toPersianDigits(r.total), 'normal')
+        ]));
+      });
+
+      rows.push(row([cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal')]));
+      rows.push(row([cell('جزئیات ثبت‌شده', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section'), cell('', 'section')]));
+      rows.push(row([
+        cell('شماره', 'header'),
+        cell('نام شاگرد', 'header'),
+        cell('حالت', 'header'),
+        cell('تاریخ', 'header'),
+        cell('وقت', 'header'),
+        cell('یادداشت', 'header')
+      ]));
+
+      if (currentWeeklyRaw.length === 0) {
+        rows.push(row([cell('در این هفته هیچ ثبت حاضری وجود ندارد.', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal'), cell('', 'normal')]));
+      } else {
+        currentWeeklyRaw.forEach((r, index) => {
+          rows.push(row([
+            cell(toPersianDigits(index + 1), 'normal'),
+            cell(r.studentName, 'normal'),
+            cell(getStatusFA(r.status), 'normal'),
+            cell(formatISODateFA(r.date), 'normal'),
+            cell(r.time || '', 'normal'),
+            cell('', 'normal')
+          ]));
+        });
+      }
+
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+    <Author>حاضری لیلیه معرفت</Author>
+  </DocumentProperties>
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="11"/>
+    </Style>
+    <Style ss:ID="normal">
+      <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="11"/>
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+    <Style ss:ID="header">
+      <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="11" ss:Bold="1" ss:Color="#FFFFFF"/>
+      <Interior ss:Color="#0F766E" ss:Pattern="Solid"/>
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+    <Style ss:ID="title">
+      <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="16" ss:Bold="1" ss:Color="#0F172A"/>
+      <Interior ss:Color="#DBEAFE" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="sub">
+      <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="11" ss:Bold="1"/>
+      <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="section">
+      <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:ReadingOrder="RightToLeft" ss:WrapText="1"/>
+      <Font ss:FontName="Tahoma" ss:Size="12" ss:Bold="1" ss:Color="#FFFFFF"/>
+      <Interior ss:Color="#334155" ss:Pattern="Solid"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="گزارش حاضری">
+    <Table ss:DefaultColumnWidth="115" ss:ExpandedColumnCount="6" ss:ExpandedRowCount="${rows.length}">
+      <Column ss:Width="70"/>
+      <Column ss:Width="180"/>
+      <Column ss:Width="90"/>
+      <Column ss:Width="90"/>
+      <Column ss:Width="90"/>
+      <Column ss:Width="120"/>
+      ${rows.join('\n')}
+    </Table>
+    <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+      <DisplayRightToLeft/>
+      <RightToLeft/>
+      <Selected/>
+      <FreezePanes/>
+      <FrozenNoSplit/>
+      <SplitHorizontal>6</SplitHorizontal>
+      <TopRowBottomPane>6</TopRowBottomPane>
+      <ActivePane>2</ActivePane>
+    </WorksheetOptions>
+  </Worksheet>
+</Workbook>`;
+
+      const blob = new Blob(['\ufeff', xml], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    /* ===== Supabase cloud connection ===== */
+    const SUPABASE_URL = window.SUPABASE_URL || '';
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+    let supabaseClient = null;
+    let cloudSyncTimer = null;
+    let cloudReady = false;
+    let isManager = false;
+    let currentAuthUser = null;
+
+    function hasSupabaseConfig() {
+      return SUPABASE_URL.startsWith('https://') && SUPABASE_ANON_KEY && !SUPABASE_URL.includes('YOUR_');
+    }
+
+    async function initSupabase() {
+      if (!hasSupabaseConfig() || !window.supabase) {
+        showMessage('⚠️ هنوز Supabase وصل نشده است؛ داده‌ها فقط در همین دستگاه ذخیره می‌شوند. فایل config.js را تکمیل کن.');
+        return;
+      }
+      try {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const { data: authData } = await supabaseClient.auth.getSession();
+        currentAuthUser = authData && authData.session ? authData.session.user : null;
+        await refreshManagerStatus();
+        const [studentsResult, recordsResult] = await Promise.all([
+          supabaseClient.from('students').select('*').order('number'),
+          supabaseClient.from('attendance_records').select('*').order('date', { ascending: false })
+        ]);
+        if (studentsResult.error) throw studentsResult.error;
+        if (recordsResult.error) throw recordsResult.error;
+        students = (studentsResult.data || []).map(s => ({
+          id: Number(s.id), number: s.number, name: s.name, active: s.active !== false,
+          createdAt: s.created_at, archivedAt: s.archived_at
+        }));
+        records = (recordsResult.data || []).map(r => ({
+          id: r.id, studentId: Number(r.student_id), studentNumber: r.student_number,
+          studentName: r.student_name, status: r.status, date: r.date, time: r.time, timestamp: r.timestamp
+        }));
+        localStorage.setItem(STORAGE_STUDENTS, JSON.stringify(students));
+        localStorage.setItem(STORAGE_RECORDS, JSON.stringify(records));
+        cloudReady = true;
+        refreshAll();
+        showMessage('✅ Supabase وصل است؛ اطلاعات آنلاین و مشترک می‌باشد.');
+      } catch (error) {
+        console.error(error);
+        showMessage('⚠️ اتصال Supabase مشکل دارد. SQL و config.js را بررسی کن.');
+      }
+    }
+
+    function queueCloudSync() {
+      if (!cloudReady || !supabaseClient) return;
+      clearTimeout(cloudSyncTimer);
+      cloudSyncTimer = setTimeout(syncAllToCloud, 450);
+    }
+
+    async function syncAllToCloud() {
+      if (!cloudReady || !supabaseClient || !isManager) return;
+      try {
+        const cloudStudents = students.map(s => ({
+          id: String(s.id), number: s.number, name: s.name, active: s.active !== false,
+          created_at: s.createdAt || new Date().toISOString(), archived_at: s.archivedAt || null
+        }));
+        const cloudRecords = records.map(r => ({
+          id: r.id, student_id: String(r.studentId), student_number: r.studentNumber,
+          student_name: r.studentName, status: r.status, date: r.date, time: r.time || null,
+          timestamp: r.timestamp || new Date().toISOString()
+        }));
+        if (cloudStudents.length) {
+          const { error } = await supabaseClient.from('students').upsert(cloudStudents);
+          if (error) throw error;
+        }
+        if (cloudRecords.length) {
+          const { error } = await supabaseClient.from('attendance_records').upsert(cloudRecords);
+          if (error) throw error;
+        }
+      } catch (error) {
+        console.error('Cloud sync failed', error);
+        showMessage('⚠️ اطلاعات در دستگاه ذخیره شد، اما به اینترنت ارسال نشد. اتصال را بررسی کن.');
+      }
+    }
+
+    async function refreshManagerStatus() {
+      if (!supabaseClient) return;
+      const { data } = await supabaseClient.auth.getSession();
+      currentAuthUser = data && data.session ? data.session.user : null;
+      isManager = false;
+      if (currentAuthUser) {
+        const { data: adminRows } = await supabaseClient.from('app_admins').select('email').eq('email', currentAuthUser.email).limit(1);
+        isManager = Array.isArray(adminRows) && adminRows.length > 0;
+      }
+      const status = document.getElementById('authStatus');
+      const loginBtn = document.getElementById('loginButton');
+      const changeBtn = document.getElementById('changePasswordButton');
+      const logoutBtn = document.getElementById('logoutButton');
+      if (isManager) {
+        status.textContent = '✅ مدیر وارد شده است: ' + currentAuthUser.email;
+        loginBtn.classList.add('hidden'); changeBtn.classList.remove('hidden'); logoutBtn.classList.remove('hidden');
+      } else {
+        status.textContent = 'حالت بازدید: فقط مشاهده';
+        loginBtn.classList.remove('hidden'); changeBtn.classList.add('hidden'); logoutBtn.classList.add('hidden');
+      }
+    }
+
+    function requireManager() {
+      if (isManager) return true;
+      alert('🔒 فقط مدیر واردشده اجازهٔ تغییر اطلاعات را دارد.');
+      toggleLoginPanel();
+      return false;
+    }
+    function toggleLoginPanel() { document.getElementById('loginPanel').classList.toggle('hidden'); document.getElementById('passwordPanel').classList.add('hidden'); }
+    function togglePasswordPanel() { document.getElementById('passwordPanel').classList.toggle('hidden'); document.getElementById('loginPanel').classList.add('hidden'); }
+    async function loginManager() {
+      if (!supabaseClient) return alert('اول config.js و Supabase را تنظیم کن.');
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value;
+      if (!email || !password) return alert('ایمیل و رمز را وارد کن.');
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) return alert('ورود موفق نشد: ' + error.message);
+      await refreshManagerStatus();
+      if (!isManager) { await supabaseClient.auth.signOut(); await refreshManagerStatus(); return alert('این حساب اجازهٔ مدیریت این سایت را ندارد.'); }
+      document.getElementById('loginPanel').classList.add('hidden');
+      showMessage('✅ ورود مدیر موفق بود. اکنون می‌توانی اطلاعات را تغییر دهی.');
+    }
+    async function logoutManager() {
+      if (!supabaseClient) return;
+      await supabaseClient.auth.signOut();
+      await refreshManagerStatus();
+      showMessage('از حساب مدیر خارج شدی.');
+    }
+    async function changeManagerPassword() {
+      if (!requireManager()) return;
+      const password = document.getElementById('newPassword').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      if (password.length < 6) return alert('رمز باید حداقل ۶ حرف داشته باشد.');
+      if (password !== confirm) return alert('دو رمز یکسان نیستند.');
+      const { error } = await supabaseClient.auth.updateUser({ password });
+      if (error) return alert('تغییر رمز موفق نشد: ' + error.message);
+      document.getElementById('newPassword').value = ''; document.getElementById('confirmPassword').value = '';
+      document.getElementById('passwordPanel').classList.add('hidden');
+      showMessage('✅ رمز مدیر با موفقیت تغییر کرد.');
+    }
+
+    document.addEventListener('DOMContentLoaded', initSupabase);
+
+    function escapeXML(text) {
+      return String(text || '').replace(/[<>&'\"]/g, function(ch) {
+        return { '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[ch];
+      });
+    }
+
+    function printWeeklyReport() {
+      showSection('report');
+      window.print();
+    }
+
+    function showSection(section) {
+      ['attendance', 'students', 'report'].forEach(s => {
+        document.getElementById(s + 'Section').classList.remove('active');
+        document.getElementById(s + 'Tab').classList.remove('active');
+      });
+      document.getElementById(section + 'Section').classList.add('active');
+      document.getElementById(section + 'Tab').classList.add('active');
+      if (section === 'attendance') renderAttendance();
+      if (section === 'students') renderSavedStudents();
+      if (section === 'report') generateWeeklyReport();
+    }
+
+    function getWeekRange(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      const day = date.getDay();
+      const diffToMonday = (day + 6) % 7;
+      const start = new Date(date);
+      start.setDate(date.getDate() - diffToMonday);
+      const end = new Date(start);
+      end.setDate(start.getDate() + 6);
+      return { start: getISODate(start), end: getISODate(end) };
+    }
+
+    function getISODate(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatDateFA(date) {
+      return new Intl.DateTimeFormat('fa-IR-u-nu-arabext', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+    }
+
+    function formatISODateFA(isoDate) {
+      return formatDateFA(new Date(isoDate + 'T00:00:00'));
+    }
+
+    function formatTimeFA(date) {
+      return new Intl.DateTimeFormat('fa-IR-u-nu-arabext', { hour: '2-digit', minute: '2-digit' }).format(date);
+    }
+
+    function toPersianDigits(value) {
+      return String(value).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+    }
+
+    function getStatusFA(status) {
+      if (status === 'present') return 'حاضر';
+      if (status === 'absent') return 'غیرحاضر';
+      if (status === 'leave') return 'رخصت';
+      return 'ثبت نشده';
+    }
+
+    function showMessage(text) {
+      message.textContent = text;
+      message.style.display = 'block';
+      setTimeout(() => { message.style.display = 'none'; }, 3500);
+    }
+
+    function escapeHTML(text) {
+      return String(text || '').replace(/[&<>"']/g, function(match) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[match];
+      });
+    }
+  </script>
+</body>
+</html>
